@@ -7,21 +7,21 @@
   <meta name="description" content="Mensaje interactivo de agradecimiento (HTML, CSS y JS)" />
   <style>
     :root {
-      /* Paleta basada en los colores de Sara */
-      --negro: #0e0f11;
-      --rosa-claro: #f6b7cd;
-      --verde-agua: #5ec2b7; /* aguamarina*/
-      --verde-militar: #556b5a;
-      --azul-cielo: #8fd3ff;
-      --arena: #e6d5b8;
+      /* Paleta (prioriza los colores de Sara con uso sobrio) */
+      --negro: #0f1115;           /* base oscura neutra */
+      --rosa-claro: #f5b6cc;      /* acento suave */
+      --aguamarina: #5ec2b7;      /* acento principal */
+      --verde-militar: #56675b;   /* texto/acento sutil */
+      --azul-cielo: #8fcfff;      /* brillo muy leve */
+      --arena: #e7d9bf;           /* papel/guías */
 
       --bg1: var(--negro);
-      --bg2: #171922;
-      --ink: #f6f7fb;
-      --muted: #cdd3df;
-      --card: #141720d0;
-      --glass: rgba(255,255,255,.08);
-      --accent: linear-gradient(180deg, var(--verde-agua), var(--rosa-claro));
+      --bg2: #161a22;
+      --ink: #f7f8fb;
+      --muted: #cfd6e3;
+      --card: #141922cc;
+      --glass: rgba(255,255,255,.07);
+      --accent-grad: linear-gradient(180deg, var(--aguamarina), var(--rosa-claro));
     }
 
     * { box-sizing: border-box; }
@@ -30,58 +30,55 @@
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Noto Sans', 'Helvetica Neue', Arial;
       color: var(--ink);
-      background: radial-gradient(1200px 800px at 20% 10%, rgba(94,194,183,.15) 0%, transparent 60%),
-                  radial-gradient(1200px 800px at 80% 90%, rgba(246,183,205,.12) 0%, transparent 60%),
+      background: radial-gradient(900px 600px at 15% 10%, rgba(94,194,183,.16) 0%, transparent 60%),
+                  radial-gradient(900px 600px at 85% 90%, rgba(245,182,204,.12) 0%, transparent 60%),
                   linear-gradient(160deg, var(--bg1), var(--bg2));
       overflow-x: hidden;
     }
 
     /* Layout */
-    .wrap { position: relative; min-height: 100dvh; display: grid; place-items: center; padding: 24px; z-index: 1; }
+    .wrap { position: relative; min-height: 100dvh; display: grid; place-items: start center; padding: 32px 24px; }
 
     .card {
       width: min(900px, 92vw);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.12);
-      border-radius: 24px;
+      border-radius: 22px;
       box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
       overflow: hidden;
       backdrop-filter: blur(8px);
     }
 
-    .hero { position: relative; padding: 36px 28px; }
-    .hero h1 { margin: 0 0 8px 0; font-weight: 800; letter-spacing: .4px; font-size: clamp(28px, 5vw, 42px); }
+    .hero { position: relative; padding: 24px; }
+    .hero h1 { margin: 0 0 6px 0; font-weight: 800; letter-spacing: .2px; font-size: clamp(26px, 4.6vw, 38px); }
     .hero p { margin: 0; opacity: .9; }
 
-    .ribbon { position: absolute; inset: 0 0 auto auto; transform: translate(30%, -35%) rotate(35deg);
-      background: var(--accent); color: #101217; font-weight: 800; padding: 10px 60px; border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(94,194,183,.25); border: 1px solid rgba(255,255,255,.25);
-    }
+    /* Ribbon 100% visible dentro de la card */
+    .ribbon { position: absolute; top: 16px; right: 16px; transform: none;
+      background: var(--accent-grad); color: #0f141c; font-weight: 800; padding: 8px 16px; border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(94,194,183,.25); border: 1px solid rgba(255,255,255,.25); font-size: 12px; letter-spacing: .4px; }
 
-    .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
-    .btn { position: relative; border: 0; border-radius: 999px; padding: 14px 20px; cursor: pointer;
-      background: var(--accent); color: #101217; font-weight: 800; letter-spacing: .4px;
-      box-shadow: 0 10px 30px rgba(94,194,183,.35); transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
-    .btn:hover { transform: translateY(-1px); filter: saturate(1.05); box-shadow: 0 14px 34px rgba(94,194,183,.45); }
+    .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .btn { border: 0; border-radius: 999px; padding: 12px 18px; cursor: pointer;
+      background: var(--accent-grad); color: #0f141c; font-weight: 800; letter-spacing: .3px;
+      box-shadow: 0 10px 30px rgba(94,194,183,.32); transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+    .btn:hover { transform: translateY(-1px); filter: saturate(1.03); box-shadow: 0 14px 34px rgba(94,194,183,.42); }
 
-    .btn.ghost { background: transparent; color: var(--muted); border: 1.4px dashed rgba(255,255,255,.28); box-shadow: none; }
+    .btn.ghost { background: transparent; color: var(--muted); border: 1.2px dashed rgba(255,255,255,.28); box-shadow: none; }
 
-    .paper {
-      background: #fcfcfd; color: #1b2130; border-radius: 18px; padding: 22px 20px; margin: 24px; line-height: 1.7;
-      font-size: clamp(16px, 1.5vw, 18px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 16px 30px rgba(0,0,0,.16);
-      background-image: repeating-linear-gradient(transparent 0 28px, rgba(230,213,184,.55) 28px 29px); /* renglones arena */
-      position: relative;
-    }
-    .paper::before { content: ""; position: absolute; left: 42px; top: 0; bottom: 0; width: 2px; background: rgba(143,211,255,.6); }
-    .paper h2 { margin: 0 0 8px 0; font-size: clamp(20px, 3vw, 26px); }
-    .paper p { margin: 0 0 12px 0; text-wrap: pretty; }
+    .paper { background: #fffefd; color: #1a2130; border-radius: 16px; padding: 18px 18px; margin: 18px 24px 24px; line-height: 1.7;
+      font-size: clamp(16px, 1.5vw, 18px); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 14px 28px rgba(0,0,0,.16);
+      background-image: repeating-linear-gradient(transparent 0 28px, rgba(231,217,191,.5) 28px 29px); }
+    /* Se quita la línea vertical azul */
+    .paper::before { content: none; }
+    .paper h2 { margin: 0 0 6px 0; font-size: clamp(20px, 3vw, 24px); }
+    .paper p { margin: 0 0 10px 0; text-wrap: pretty; }
 
-    .footer { display: grid; gap: 12px; padding: 0 24px 28px 24px; }
+    .footer { display: grid; gap: 12px; padding: 0 24px 22px; }
 
-    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; }
-    .tile { background: var(--glass); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 16px; min-height: 120px; position: relative; overflow: hidden; }
-    .tile h3 { margin: 0 0 6px 0; font-size: 18px; }
+    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 12px; }
+    .tile { background: var(--glass); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 14px; min-height: 110px; }
+    .tile h3 { margin: 0 0 6px 0; font-size: 16px; }
     .tile p { margin: 0; opacity: .92; }
 
     /* Gate (overlay) */
@@ -93,20 +90,13 @@
 
     .env-body { position: absolute; inset: 0; background: #f4f6f9; border-radius: 14px; border: 2px solid #dbe1ea; }
     .env-flap { position: absolute; left: 0; right: 0; top: 0; height: 50%; background: linear-gradient(180deg, #eaf6ff, #dbe1ea); clip-path: polygon(0 0, 100% 0, 50% 100%); border-top-left-radius: 14px; border-top-right-radius: 14px; transform-origin: top; transition: transform .8s ease; }
-    .seal { position: absolute; width: 74px; height: 74px; border-radius: 999px; background: var(--accent); border: 3px solid rgba(255,255,255,.5); display: grid; place-items: center; color: #101217; font-weight: 900; letter-spacing: .5px; box-shadow: 0 10px 20px rgba(0,0,0,.25); }
-    .seal span { font-size: 13px; }
+    .seal { position: absolute; width: 74px; height: 74px; border-radius: 999px; background: var(--accent-grad); border: 3px solid rgba(255,255,255,.5); display: grid; place-items: center; color: #0f141c; font-weight: 900; letter-spacing: .5px; box-shadow: 0 10px 20px rgba(0,0,0,.25); font-size: 13px; }
 
     .open-hint { margin-top: 18px; opacity: .9; font-weight: 600; }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) { .envelope { animation: none; } .btn, .tile, .card { transition: none !important; } }
 
-    /* Typewriter */
-    .type { min-height: 8lh; white-space: pre-wrap; }
-    .caret { display: inline-block; width: 10px; border-bottom: 2px solid #2b103a; animation: blink 1s steps(1) infinite; }
-    @keyframes blink { 50% { opacity: 0; } }
-
-    /* Click trail (sin corazones) */
+    /* Figuras (no corazones) */
     .trail { position: fixed; width: 12px; height: 12px; pointer-events: none; transform: translate(-50%, -50%); }
   </style>
 </head>
@@ -117,7 +107,7 @@
     <article class="card" role="region" aria-label="Mensaje de agradecimiento">
       <header class="hero">
         <div class="ribbon">Agradecimiento</div>
-        <h1 id="title">Para <span id="nombre">Sara</span></h1>
+        <h1 id="title">Para <span id="nombre">Sara</span></span></h1>
         <p>Un mensaje breve para reconocer tu calidad humana y profesional.</p>
         <div class="cta">
           <button class="btn" id="btnLeer">Leer el mensaje</button>
@@ -138,7 +128,7 @@
           </div>
           <div class="tile">
             <h3>Dedicatoria</h3>
-            <p id="dedicatoria">Con aprecio, <em>Jimmy Jimen</em></p>
+            <p id="dedicatoria">Con aprecio, <em>Jimmy Jimenez</em></p>
           </div>
         </div>
       </footer>
@@ -168,7 +158,7 @@ Gracias por la colaboración y por la buena energía de siempre.
   <script>
     // --- Personalización rápida ---
     const NOMBRE = 'Sara';
-    const FIRMANTE = 'Jimmy Jimen';
+    const FIRMANTE = 'Jimmy Jimenez';
 
     // Inserta nombre y firma
     document.getElementById('nombre').textContent = NOMBRE;
@@ -185,6 +175,9 @@ Gracias por la colaboración y por la buena energía de siempre.
       setTimeout(() => gate.classList.add('hidden'), 700);
       confettiBurst(120);
       startTypewriter();
+      // Enfoca y hace scroll directo al mensaje
+      const msg = document.querySelector('.paper');
+      msg.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     gate.addEventListener('click', openEnvelope);
 
@@ -202,7 +195,7 @@ Gracias por la colaboración y por la buena energía de siempre.
     function startTypewriter(){ typeText(texto, plantilla, 42); }
 
     // Botón leer
-    document.getElementById('btnLeer').addEventListener('click', () => { startTypewriter(); confettiBurst(60); });
+    document.getElementById('btnLeer').addEventListener('click', () => { startTypewriter(); confettiBurst(60); document.querySelector('.paper').scrollIntoView({behavior:'smooth', block:'start'}); }); confettiBurst(60); });
 
     // Tema claro/oscuro (usa negro con acentos de la paleta y modo claro arena/azul)
     let dark = true;
