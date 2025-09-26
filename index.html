@@ -107,7 +107,7 @@
     <article class="card" role="region" aria-label="Mensaje de agradecimiento">
       <header class="hero">
         <div class="ribbon">Agradecimiento</div>
-        <h1 id="title">Para <span id="nombre">Sara</span></span></h1>
+        <h1 id="title">Para <span id="nombre">Sara</span></h1>
         <p>Un mensaje breve para reconocer tu calidad humana y profesional.</p>
         <div class="cta">
           <button class="btn" id="btnLeer">Leer el mensaje</button>
@@ -194,8 +194,12 @@ Gracias por la colaboración y por la buena energía de siempre.
     }
     function startTypewriter(){ typeText(texto, plantilla, 42); }
 
-    // Botón leer
-    document.getElementById('btnLeer').addEventListener('click', () => { startTypewriter(); confettiBurst(60); document.querySelector('.paper').scrollIntoView({behavior:'smooth', block:'start'}); }); confettiBurst(60); });
+    // Botón leer (corregido: sin paréntesis extra ni doble confetti)
+    document.getElementById('btnLeer').addEventListener('click', () => { 
+      startTypewriter(); 
+      confettiBurst(60); 
+      document.querySelector('.paper').scrollIntoView({behavior:'smooth', block:'start'}); 
+    });
 
     // Tema claro/oscuro (usa negro con acentos de la paleta y modo claro arena/azul)
     let dark = true;
@@ -279,7 +283,13 @@ Gracias por la colaboración y por la buena energía de siempre.
       if (conf.length === 0) { cancelAnimationFrame(rafId); rafId = null; }
     }
 
-    window.addEventListener('load', () => { document.getElementById('btnLeer').focus({ preventScroll: true }); });
+    // --- Auto-pruebas mínimas (para depurar en consola) ---
+    window.addEventListener('load', () => {
+      document.getElementById('btnLeer').focus({ preventScroll: true });
+      console.assert(document.getElementById('nombre').textContent.trim() === NOMBRE, 'El nombre no se insertó correctamente');
+      console.assert(document.getElementById('dedicatoria').textContent.includes('Jimmy Jimenez'), 'La firma no coincide');
+      console.assert(typeof confettiBurst === 'function', 'confettiBurst no está definida');
+    });
   </script>
 </body>
 </html>
